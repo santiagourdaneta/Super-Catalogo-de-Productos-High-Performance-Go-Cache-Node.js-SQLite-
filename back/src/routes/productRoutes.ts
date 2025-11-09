@@ -15,6 +15,14 @@ const productPostLimiter = rateLimit({
     max: 10, // limit each IP to 10 requests per windowMs
     message: { message: "Demasiadas solicitudes para crear producto desde esta IP, por favor espere un momento." },
 });
+
+// Rate limiter for GET /api/products/search
+const productGetLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute window
+    max: 60, // limit each IP to 60 requests per windowMs
+    message: { message: "Demasiadas solicitudes de búsqueda de productos desde esta IP, por favor espere un momento." },
+});
+
 // --- 1. ESQUEMA DE VALIDACIÓN (Seguridad y Tipado Estricto) ---
 
 // Esquema para validar los parámetros de paginación en la URL
@@ -37,7 +45,7 @@ const newProductSchema = z.object({
  * Lógica de Alto Rendimiento: Intenta obtener datos del Cache Go (8080) primero.
  * Si falla o hay un Cache Miss, cae a la Base de Datos (SQLite).
  */
-productRouter.get('/search', async (req, res) => {
+productRouter.get('/search', productGetLimiter, async (req, res) => {
     try {
         // Validación de entrada con Zod
         const { page, limit } = paginationSchema.parse(req.query);
