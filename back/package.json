@@ -19,7 +19,8 @@
     "kafkajs": "^2.2.4",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "express-rate-limit": "^8.2.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
