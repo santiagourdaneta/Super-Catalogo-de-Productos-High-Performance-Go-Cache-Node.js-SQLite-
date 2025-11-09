@@ -1,0 +1,37 @@
+# ------------------------------------
+# DEPENDENCIAS Y ARTEFACTOS DE BUILD
+# ------------------------------------
+
+# Node
+/node_modules
+/back/node_modules
+/front/node_modules
+/back/package-lock.json
+/front/package-lock.json
+/npm-debug.log
+/dist
+/build
+
+# Golang
+/cache-service/bin/
+/cache-service/*.exe
+
+# TypeScript/Vite
+.temp
+.cache
+
+# ------------------------------------
+# DATOS DE USUARIO Y BASE DE DATOS
+# ------------------------------------
+
+# Archivo de la base de datos
+database.sqlite
+
+# ------------------------------------
+# CONFIGURACIONES DE ENTORNO Y CLAVES
+# ------------------------------------
+
+# Archivos de entorno (contienen claves secretas)
+.env
+.env.local
+.env.*.local

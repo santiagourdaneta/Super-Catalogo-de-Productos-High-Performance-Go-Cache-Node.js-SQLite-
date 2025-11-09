@@ -1,0 +1,30 @@
+// back/tsconfig.json
+{
+  "compilerOptions": {
+    /* M�dulos y Resoluci�n*/
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022", // Asegura la compatibilidad con Node.js moderno
+
+    /* Salida y Directorios */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    
+    /* Strictness */
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Otros */
+    "lib": ["ES2022"],
+    "sourceMap": true,
+    "allowJs": true
+  },
+  "include": [
+    "src/**/*.ts" // Incluye todos los archivos .ts en la carpeta src
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
