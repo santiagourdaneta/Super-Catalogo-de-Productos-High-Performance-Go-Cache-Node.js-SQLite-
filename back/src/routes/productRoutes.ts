@@ -5,9 +5,16 @@ import { z } from 'zod';
 import { db } from '../db';
 import axios from 'axios';
 import { Config } from '../config';
+import rateLimit from 'express-rate-limit';
 
 const productRouter = Router();
 
+// Rate limiter for POST /api/products
+const productPostLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute window
+    max: 10, // limit each IP to 10 requests per windowMs
+    message: { message: "Demasiadas solicitudes para crear producto desde esta IP, por favor espere un momento." },
+});
 // --- 1. ESQUEMA DE VALIDACIÓN (Seguridad y Tipado Estricto) ---
 
 // Esquema para validar los parámetros de paginación en la URL
@@ -97,7 +104,7 @@ productRouter.get('/search', async (req, res) => {
  * Lógica de Consistencia: Escribe en SQLite y luego invalida el Cache Go directamente
  * para asegurar que la próxima lectura sea fresca.
  */
-productRouter.post('/', async (req, res) => {
+productRouter.post('/', productPostLimiter, async (req, res) => {
     try {
         // Validación de entrada estricta antes de tocar la DB
         const validatedProduct = newProductSchema.parse(req.body);
